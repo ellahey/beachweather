@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Node.js and HTML Integration</title>
+</head>
+<body>
+<h1>Data from the backend:</h1>
+<p id="data"></p>
+
+<script>
+    fetch('/api/data')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('data').innerText = data.message;
+        })
+        .catch(error => console.error('Error fetching data:', error));
+</script>
+</body>
+</html>
