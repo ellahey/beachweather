@@ -5,9 +5,10 @@
     <title>Beach weather</title>
 </head>
 <body>
-<h1>Choose your location:</h1>
-<ul id="data"></ul>
 
+<h1>Choose your location:</h1>
+
+<ul id="data"></ul>
 <script>
     fetch('/api/locations')
         .then(response => response.json())
