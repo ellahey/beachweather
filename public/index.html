@@ -2,17 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Node.js and HTML Integration</title>
+    <title>Beach weather</title>
 </head>
 <body>
-<h1>Data from the backend:</h1>
-<p id="data"></p>
+<h1>Choose your location:</h1>
+<ul id="data"></ul>
 
 <script>
-    fetch('/api/data')
+    fetch('/api/locations')
         .then(response => response.json())
-        .then(data => {
-            document.getElementById('data').innerText = data.message;
+        .then(locations => {
+            const locationsList = document.getElementById('data');
+            locations.forEach(location => {
+                const listItem = document.createElement('li');
+                listItem.innerText = location;
+                locationsList.appendChild(listItem);
+            });
         })
         .catch(error => console.error('Error fetching data:', error));
 </script>
