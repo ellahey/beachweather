@@ -1,0 +1,46 @@
+/* Split the screen in half */
+
+
+body {
+        font-family: Georgia, serif;
+    }
+
+#locationsDropdown {
+    font-family: Georgia, serif;
+    font-size: larger;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.split {
+    height: 100%;
+    width: 50%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+/* Control the left side */
+.left {
+    left: 0;
+   /* background-color: #D6D1B1;*/
+    background-image: url('assets/abstract-6353627_1280.png');
+}
+
+/* Control the right side */
+.right {
+    right: 0;
+    background-color: #8AC4FF;
+}
+
+/* If you want the content centered horizontally and vertically */
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
