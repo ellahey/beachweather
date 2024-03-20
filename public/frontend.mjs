@@ -21,3 +21,16 @@ fetch('/api/locations')
         });
     })
     .catch(error => console.error('Error fetching data:', error));
+
+
+function toggleModal() {
+    let navbar = document.getElementById("modal");
+    if (navbar.className === "navbar") {
+        navbar.className += " responsive";
+    } else {
+        navbar.className = "navbar";
+    }
+}
+
+
+

@@ -6,28 +6,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="./frontend.mjs" defer></script>
     <link rel="stylesheet" href="./styling.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Beach weather</title>
 </head>
 
 <body>
-<div class="split left">
-    <div class="centered">
-        <h1>Choose your location:</h1>
-        <label for="locationsDropdown"></label>
-        <select id="locationsDropdown"></select> <!-- Dropdown for locations -->
-    </div>
-</div>
 
-<div class="split right">
-    <div class="centered">
-        <h2>Right side</h2>
-        <p>Some text here too.</p>
+<div id="page-container">
+
+
+    <nav class="navbar" id="navbar">
+        <a href="#contact" onclick="toggleModal()">Contact</a>
+    </nav>
+
+
+    <div class="split left">
+        <div class="centered">
+            <div class="dd_container">
+                <h1>Choose your location:</h1>
+                <label for="locationsDropdown"></label>
+                <select id="locationsDropdown"></select> <!-- Dropdown for locations -->
+            </div>
+        </div>
+    </div>
+
+    <div class="split right">
+        <div class="centered">
+            <h2>Right side</h2>
+            <p>Some text here too.</p>
+        </div>
+    </div>
+
+
+
+    <footer id="footer">
+        Background image by <a href="https://pixabay.com/users/jwlucky-22175002/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=6353627">JWLUCKY</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=6353627">Pixabay</a>
+        <div id="about-container">
+            <p id="about">Add some about text here</p>
+        </div>
+
+        <div id="contact-container">
+            <p id="contact">Add some contact text here</p>
+        </div>
+
+    </footer>
+    <div class='modal-container'>
+        <div class='modal'>
+           some text
+        </div>
     </div>
 
 </div>
 </body>
-<!--Change this to be in an about page?-->
-<footer>Background image by <a href="https://pixabay.com/users/jwlucky-22175002/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=6353627">JWLUCKY</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=6353627">Pixabay</a></footer>
 </html>
 
 
