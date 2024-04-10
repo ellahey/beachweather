@@ -1,3 +1,4 @@
+
 // Function to populate the dropdown with locations
 let place;
 const dropdown = document.getElementById("locationsDropdown");
