@@ -104,8 +104,10 @@ img[alt~="sun"] {
 /* Control the left side */
 .left {
     left: 0;
-   background-color: hotpink;
-
+   background-image: url("./assets/beach_background.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .dd_container {
