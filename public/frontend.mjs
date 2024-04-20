@@ -1,6 +1,6 @@
 
-// Function to populate the dropdown with locations
-let place;
+import {place} from "../weather.mjs";
+let lat, long;
 const dropdown = document.getElementById("locationsDropdown");
 
 fetch('/api/locations')
@@ -13,25 +13,28 @@ fetch('/api/locations')
             option.text = location;
             dropdown.appendChild(option);
         });
-
-        // Add change listener to dropdown
-        document.getElementById("locationsDropdown").addEventListener('change', function() {
-            let selectedOption = this.options[this.selectedIndex]; // Get the selected option
-            let place = selectedOption.value; // Get the value of the selected option
-            alert("Selected place: " + place);
-        });
     })
-    .catch(error => console.error('Error fetching data:', error));
+    .catch(error => console.error('Error fetching data:', error)
+    );
+
+fetch('/api/coordinates')
+    .then(response => response.json())
+    .then(coordinates => {
+        console.log(coordinates)
+    })
+
+fetch('/api/weather')
+    .then(response => response.json())
+    .then(weather => {
+        document.querySelector("#weatherData").innerHTML = weather.toString();
+    })
 
 
-function toggleModal() {
-    let navbar = document.getElementById("modal");
-    if (navbar.className === "navbar") {
-        navbar.className += " responsive";
-    } else {
-        navbar.className = "navbar";
-    }
-}
+
+
+
+
+
 
 
 

@@ -1,10 +1,10 @@
 
 #page-container {
-        width: 100%;
-        height: 100vh;
-        background: white;
-        display: flex;
-    }
+    width: 100%;
+    height: 100vh;
+    background: white;
+    display: flex;
+}
 
 #navbar-container {
     position: relative;
@@ -74,13 +74,9 @@
 
 
 body {
-        font-family: Georgia, serif;
-    }
-
-img[alt~="sun"] {
-    max-height: 60%;
-    max-width: 60%;
+    font-family: Georgia, serif;
 }
+
 
 #locationsDropdown {
     font-family: Georgia, serif;
@@ -88,6 +84,7 @@ img[alt~="sun"] {
     font-weight: normal;
     text-align: center;
     border-radius: 5px;
+    margin-bottom: 10px;
     box-shadow: 0 5px 10px rgba(0,0,0,0.2);
 }
 
@@ -104,7 +101,7 @@ img[alt~="sun"] {
 /* Control the left side */
 .left {
     left: 0;
-   background-image: url("./assets/beach_background.png");
+    background-image: url("./assets/beach_background.png");
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
@@ -118,15 +115,17 @@ img[alt~="sun"] {
     border-radius: 12px;
     box-shadow: 0 5px 10px rgba(0,0,0,0.2);
     z-index: 120;
-    /*background-color: white;
-    border-radius: 8px;
-    padding: 1em;
-    width: max-content;
-    max-width: 75%;
-    height: 200px;
-    display: grid;
-    align-items: center;
-    justify-content: center;*/
+
+    & button {
+        border-radius: 12px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        width: 40px;
+        margin: auto;
+        font-family: inherit;
+        font-size: larger;
+        background-color: mediumturquoise;
+    }
 }
 
 /* Control the right side */
@@ -143,13 +142,4 @@ img[alt~="sun"] {
     transform: translate(-50%, -50%);
     text-align: center;
 }
-
-/*Put in about*/
-/*#footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 2.5rem;            !* Footer height *!
-    z-index: 130;
-}*/
 
