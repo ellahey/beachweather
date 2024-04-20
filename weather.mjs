@@ -1,8 +1,9 @@
 /* Weather data from meteoserver.nl */
-let lat, long;
+
 import axios from "axios";
 export let place;
 place = 'domburg'
+let lat, long;
 const APIkey = 'c839d9b335bda48cf2d4c3b2b4302d20';
 const urlCoordinates = `http://api.openweathermap.org/geo/1.0/direct?q=${place}&appid=${APIkey}`
 const urlWeather = `https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}`
@@ -11,6 +12,7 @@ async function getCoordinates() {
     try {
         const coordinatesResponse = await axios.get(urlCoordinates);
         lat = coordinatesResponse.data[2]
+        long = coordinatesResponse.data[3]
         console.log("This is the latitude: ", lat)
         return coordinatesResponse.data;
     } catch (error) {

@@ -1,6 +1,5 @@
 
-import {place} from "../weather.mjs";
-let lat, long;
+
 const dropdown = document.getElementById("locationsDropdown");
 
 fetch('/api/locations')
@@ -17,6 +16,7 @@ fetch('/api/locations')
     .catch(error => console.error('Error fetching data:', error)
     );
 
+/*
 fetch('/api/coordinates')
     .then(response => response.json())
     .then(coordinates => {
@@ -29,6 +29,7 @@ fetch('/api/weather')
         document.querySelector("#weatherData").innerHTML = weather.toString();
     })
 
+*/
 
 
 

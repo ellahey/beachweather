@@ -21,7 +21,6 @@ app.get('/api/locations', async (req, res) => {
     } catch (error) {
         // Log the error for server-side debugging
         console.error("Failed to fetch locations:", error);
-
         // Send a client-friendly error message and set an appropriate status code
         res.status(500).json({ message: "Failed to fetch locations. Please try again later." });
     }
