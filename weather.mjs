@@ -1,30 +1,26 @@
 /* Weather data from meteoserver.nl */
 
 import axios from "axios";
-export let place;
-place = 'domburg'
-let lat, long;
+
+
+let place = 'domburg'
+
 const APIkey = 'c839d9b335bda48cf2d4c3b2b4302d20';
-const urlCoordinates = `http://api.openweathermap.org/geo/1.0/direct?q=${place}&appid=${APIkey}`
-const urlWeather = `https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}`
+const urlCoordinates = `https://api.openweathermap.org/geo/1.0/direct?q=${place}&appid=${APIkey}`
+const urlWeather = `https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&appid={API key}`
 
 async function getCoordinates() {
+    console.log("Fetching coordinates for URL:", urlCoordinates);
     try {
-        const coordinatesResponse = await axios.get(urlCoordinates);
-        lat = coordinatesResponse.data[2]
-        long = coordinatesResponse.data[3]
-        console.log("This is the latitude: ", lat)
-        return coordinatesResponse.data;
+        const response = await axios.get(urlCoordinates);
+        console.log("API Response:", response.data);
+        return response.data;
     } catch (error) {
-        console.error("Error:", error);
-        if (error.response && error.response.status) {
-            console.log({error: error.response.statusText});
-        } else {
-            console.log({error: "Failed to fetch html"});
-        }
-        throw error; // Rethrow the error to propagate it
+        console.error("Error fetching coordinates:", error);
+        throw error;
     }
 }
+
 
 
 /*http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}

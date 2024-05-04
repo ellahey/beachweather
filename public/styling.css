@@ -132,6 +132,10 @@ body {
 .right {
     right: 0;
     background-color: white;
+
+    & p.weather_text {
+        color: black;
+    }
 }
 
 /* Content centered horizontally and vertically */

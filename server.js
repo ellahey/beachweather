@@ -1,18 +1,12 @@
 import express from "express";
+import {getLocations} from './locations.mjs';
+import {getCoordinates} from "./weather.mjs";
+
 const app = express();
 const port = 3000;
-import {getLocations} from './locations.mjs';
 
 app.use(express.json()); // Middleware to parse JSON bodies
 app.use(express.static('public'));
-
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
-
-app.get('/api/data', (req, res) => {
-    res.json({ message: "This is data from the backend." });
-});
 
 app.get('/api/locations', async (req, res) => {
     try {
@@ -25,6 +19,17 @@ app.get('/api/locations', async (req, res) => {
         res.status(500).json({ message: "Failed to fetch locations. Please try again later." });
     }
 });
+
+app.get('/api/coordinates', async (req, res) => {
+    try {
+        const coordinates = await getCoordinates();
+        res.json(coordinates);
+    } catch (error) {
+        console.error("Failed to fetch coordinates:", error);
+        res.status(500).json({ message: "Failed to fetch coordinates. Please try again later." });
+    }
+});
+
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
