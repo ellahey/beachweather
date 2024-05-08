@@ -22,7 +22,22 @@ async function getCoordinates() {
 }
 
 
-
+/*async function getCoordinates() {
+    console.log("Fetching coordinates for URL:", urlCoordinates);
+    try {
+        const response = await axios.get(urlCoordinates);
+        const jsonString =  response.data[0]
+        lat = jsonString["lat"]
+        lon = jsonString["lon"]
+        coordArray = [lat, lon];
+        console.log(`Latitude: ${lat}, Longitude: ${lon}`);
+        /!*return response.data;*!/
+        return coordArray;
+    } catch (error) {
+        console.error("Error fetching coordinates:", error);
+        throw error;
+    }
+}*/
 /*http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}
 /*
 if (typeof document !== 'undefined') {
