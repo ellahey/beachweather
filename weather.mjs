@@ -8,19 +8,23 @@ let place = 'domburg'
 const APIkey = 'c839d9b335bda48cf2d4c3b2b4302d20';
 const urlCoordinates = `https://api.openweathermap.org/geo/1.0/direct?q=${place}&appid=${APIkey}`
 const urlWeather = `https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&appid={API key}`
-
+let lat, lon, coordArray;
 async function getCoordinates() {
     console.log("Fetching coordinates for URL:", urlCoordinates);
     try {
         const response = await axios.get(urlCoordinates);
-        console.log("API Response:", response.data);
-        return response.data;
+        const jsonString =  response.data[0]
+        lat = jsonString["lat"]
+        lon = jsonString["lon"]
+        coordArray = [lat, lon];
+        console.log(`Latitude: ${lat}, Longitude: ${lon}`);
+        /*return response.data;*/
+        return coordArray;
     } catch (error) {
         console.error("Error fetching coordinates:", error);
         throw error;
     }
 }
-
 
 /*async function getCoordinates() {
     console.log("Fetching coordinates for URL:", urlCoordinates);
@@ -74,4 +78,4 @@ async function getWeather() {
     }
 }
 
-export {getCoordinates, getWeather}
+export {getCoordinates, getWeather, lat, lon, coordArray}
