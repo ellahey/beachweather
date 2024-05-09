@@ -3,6 +3,7 @@ import * as cheerio from 'cheerio';
 
 async function getLocations() {
     try {
+        console.log("Fetching locations");
         const response = await axios.get('https://nl.wikipedia.org/wiki/Lijst_van_badplaatsen_in_Nederland');
         const html = response.data;
         const $ = cheerio.load(html);

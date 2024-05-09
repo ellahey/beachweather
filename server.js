@@ -1,6 +1,6 @@
 // server.js
 import express from "express";
-import { getCoordinates, getWeather } from "./weather.mjs";
+import { getCoordinates} from "./weather.mjs";
 import {getLocations} from "./locations.mjs";
 
 const app = express();
