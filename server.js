@@ -1,6 +1,6 @@
 // server.js
 import express from "express";
-import { getCoordinates} from "./weather.mjs";
+import { getCoordinates, getWeather} from "./weather.mjs";
 import {getLocations} from "./locations.mjs";
 
 const app = express();
@@ -20,6 +20,8 @@ app.get('/api/locations', async (req, res) => {
     }
 });
 
+
+
 app.post('/api/coordinates', async (req, res) => {
     try {
         const { place } = req.body;
@@ -31,6 +33,17 @@ app.post('/api/coordinates', async (req, res) => {
     }
 });
 
+app.post('/api/weather', async (req, res) => {
+    try {
+        console.log("Fetch request reaches server")
+        const { coordinates  } = req.body;
+        const weather = await getWeather(coordinates);
+        res.json(weather);
+    } catch (error) {
+        console.error("Failed to fetch weather:", error);
+        res.status(500).json({ message: "Failed to fetch coordinates. Please try again later." });
+    }
+});
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
 });

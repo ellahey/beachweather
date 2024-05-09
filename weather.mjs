@@ -3,7 +3,7 @@ import axios from "axios";
 
 const APIkey = 'c839d9b335bda48cf2d4c3b2b4302d20';
 const urlCoordinates = `https://api.openweathermap.org/geo/1.0/direct`;
-/*const urlWeather = `https://api.openweathermap.org/data/3.0/onecall`;*/
+const urlWeather = `https://api.openweathermap.org/data/2.5/weather`;
 
 async function getCoordinates(place) {
     console.log("Fetching coordinates for place:", place);
@@ -23,10 +23,13 @@ async function getCoordinates(place) {
         throw error;
     }
 }
-/*
 
-async function getWeather(lat, lon) {
+async function getWeather(coordinates) {
+    console.log("Fetching weather")
     try {
+        console.log("Coordinates:", coordinates); // Log coordinates
+        const lat = coordinates[0];
+        const lon = coordinates[1];
         const weatherResponse = await axios.get(urlWeather, {
             params: {
                 lat,
@@ -34,12 +37,12 @@ async function getWeather(lat, lon) {
                 appid: APIkey
             }
         });
-        return weatherResponse.data;
+        console.log(weatherResponse.data); // Log weather response
+        return weatherResponse.data; // Return weather data
     } catch (error) {
         console.error("Error fetching weather:", error);
         throw error;
     }
 }
-*/
 
-export { getCoordinates };
+export { getCoordinates, getWeather };
