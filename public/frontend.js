@@ -43,12 +43,12 @@ document.addEventListener('DOMContentLoaded', function() {
                             throw new Error('Network response was not ok');
                         }
                         // Process weather response
-                        console.log(response.json())
-                        return response.json();
+                        /*console.log(response.json())*/
+                        /*return response.json();*/
                     })
                     .then(weatherData => {
-                        // Do something with the weather data
-                        console.log(weatherData);
+                     /*console.log(`Weather data: ${weatherData}`)//do something else with weatherData.
+*/
                     })
                     .catch(error => {
                         console.error('Error fetching weather:', error);

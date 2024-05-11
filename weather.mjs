@@ -1,10 +1,14 @@
 // weather.mjs
 import axios from "axios";
+import {json} from "express";
+import {nodeLength} from "jsdom/lib/jsdom/living/helpers/node.js";
 
 const APIkey = 'c839d9b335bda48cf2d4c3b2b4302d20';
 const urlCoordinates = `https://api.openweathermap.org/geo/1.0/direct`;
 const urlWeather = `https://api.openweathermap.org/data/2.5/weather`;
 
+
+let currentTemp, maxTemp, humidity, feelsLike, cloudCover, wind;
 async function getCoordinates(place) {
     console.log("Fetching coordinates for place:", place);
     try {
@@ -13,6 +17,7 @@ async function getCoordinates(place) {
                 q: place,
                 appid: APIkey
             }
+
         });
         const { lat, lon } = response.data[0];
         const coordArray = [lat, lon];
@@ -37,8 +42,15 @@ async function getWeather(coordinates) {
                 appid: APIkey
             }
         });
-        console.log(weatherResponse.data); // Log weather response
-        return weatherResponse.data; // Return weather data
+
+        console.log('Response Data Property using stringify:', JSON.stringify(weatherResponse.data, null, 2));
+
+// Logging specific data
+       const weatherArray =  weatherResponse.data && weatherResponse.data.weather; // Safe access using && to avoid errors*/
+        console.log(weatherArray)
+       cloudCover = weatherArray[0].description
+       console.log(cloudCover)
+
     } catch (error) {
         console.error("Error fetching weather:", error);
         throw error;
