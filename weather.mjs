@@ -1,14 +1,11 @@
 // weather.mjs
 import axios from "axios";
-import {json} from "express";
-import {nodeLength} from "jsdom/lib/jsdom/living/helpers/node.js";
 
 const APIkey = 'c839d9b335bda48cf2d4c3b2b4302d20';
 const urlCoordinates = `https://api.openweathermap.org/geo/1.0/direct`;
 const urlWeather = `https://api.openweathermap.org/data/2.5/weather`;
+let details;
 
-
-let currentTemp, maxTemp, humidity, feelsLike, cloudCover, wind;
 async function getCoordinates(place) {
     console.log("Fetching coordinates for place:", place);
     try {
@@ -19,7 +16,7 @@ async function getCoordinates(place) {
             }
 
         });
-        const { lat, lon } = response.data[0];
+        const {lat, lon} = response.data[0];
         const coordArray = [lat, lon];
         console.log(`Latitude: ${lat}, Longitude: ${lon}`);
         return coordArray;
@@ -42,19 +39,46 @@ async function getWeather(coordinates) {
                 appid: APIkey
             }
         });
-
-        console.log('Response Data Property using stringify:', JSON.stringify(weatherResponse.data, null, 2));
-
-// Logging specific data
-       const weatherArray =  weatherResponse.data && weatherResponse.data.weather; // Safe access using && to avoid errors*/
-        console.log(weatherArray)
-       cloudCover = weatherArray[0].description
-       console.log(cloudCover)
-
+       parseDetails(weatherResponse)
     } catch (error) {
         console.error("Error fetching weather:", error);
         throw error;
     }
 }
 
-export { getCoordinates, getWeather };
+async function parseDetails(weatherResponse) {
+    const weatherData = weatherResponse.data;
+    const weatherArray = Array.isArray(weatherData.weather) ? weatherData.weather : [];
+    const mainData = weatherData.main || {};
+    const windData = weatherData.wind || {};
+
+    const cloudCover = weatherArray[0] ? weatherArray[0].description : undefined;
+    const icon = weatherArray[0] ? weatherArray[0].icon : undefined;
+    const currentTemp = mainData.temp;
+    const feelsLike = mainData.feels_like;
+    const minimumTemp = mainData.temp_min;
+    const maxTemp = mainData.temp_max;
+    const windSpeed = windData.speed;
+    const windDirection = windData.deg;
+
+    details = [
+        cloudCover,
+        icon,
+        currentTemp,
+        feelsLike,
+        minimumTemp,
+        maxTemp,
+        windSpeed,
+        windDirection
+    ];
+}
+
+async function getDetails() {
+    if (details.length > 0) {
+        return details;
+    }
+}
+
+
+
+export {getCoordinates, getWeather, getDetails};

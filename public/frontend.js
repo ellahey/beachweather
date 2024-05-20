@@ -1,6 +1,124 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const dropdown = document.querySelector('#locationsDropdown');
     const goButton = document.querySelector("#getWeatherButton");
+    const weatherText = document.querySelector("#weatherText");
+
+
+    fetch('/api/locations')
+        .then(response => response.json())
+        .then(locations => {
+            // Populate dropdown with locations
+            locations.forEach(location => {
+                const option = document.createElement("option");
+                option.value = location;
+                option.text = location;
+                dropdown.appendChild(option);
+            });
+        })
+        .catch(error => console.error('Error fetching locations:', error));
+
+    goButton.addEventListener('click', function () {
+        let place = dropdown.value; // Get the selected value from the dropdown menu
+        fetch('/api/coordinates', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ place }) // Send the selected value in the request body
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(coordinates => {
+                fetch('/api/weather', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ coordinates }) // Stringify coordinates before sending
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+
+                   /* })
+                    .then(() => {*/
+                        console.log('Beginning fetch details');
+                        fetch(`/api/details`)
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('Network response was not ok');
+                                }
+                                return response.json();
+                            })
+                            .then(details => {
+                                /*clear previous data*/
+                                weatherText.innerHTML = '';
+                                // Create elements for each detail and append them
+                                const cloudCoverElem = document.createElement("div");
+                                cloudCoverElem.textContent = `Cloud Cover: ${details[0]}`;
+
+                                const iconElem = document.getElementById("weather-icon")
+                                const icon = details[1];
+                                console.log(`Here are the details of the icon ${details[1]}`)
+                                iconElem.innerHTML = `<img src="./assets/icons/icons/${icon}.png" alt="weather icon">`;
+
+                                const currentTempElem = document.createElement("div");
+                                currentTempElem.textContent = `Current Temperature: ${details.currentTemp}K`;
+
+                                const feelsLikeElem = document.createElement("div");
+                                feelsLikeElem.textContent = `Feels Like: ${details.feelsLike}K`;
+
+                                const minTempElem = document.createElement("div");
+                                minTempElem.textContent = `Minimum Temperature: ${details.minimumTemp}K`;
+
+                                const maxTempElem = document.createElement("div");
+                                maxTempElem.textContent = `Maximum Temperature: ${details.maxTemp}K`;
+
+                                const windSpeedElem = document.createElement("div");
+                                windSpeedElem.textContent = `Wind Speed: ${details.windSpeed} m/s`;
+
+                                const windDirectionElem = document.createElement("div");
+                                windDirectionElem.textContent = `Wind Direction: ${details.windDirection}°`;
+
+                                weatherText.append(
+                                    cloudCoverElem,
+                                    iconElem,
+                                    currentTempElem,
+                                    feelsLikeElem,
+                                    minTempElem,
+                                    maxTempElem,
+                                    windSpeedElem,
+                                    windDirectionElem
+                                );
+                            })
+                            .catch(error => {
+                                console.error('Error fetching weather details:', error);
+                            });
+                    })
+                    .catch(error => {
+                        console.error('Error fetching weather:', error);
+                    });
+            })
+            .catch(error => {
+                console.error('Error fetching coordinates:', error);
+            });
+    });
+});
+
+
+/*
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const dropdown = document.querySelector('#locationsDropdown');
+    const goButton = document.querySelector("#getWeatherButton");
+    const weatherText = document.querySelector("#weatherText");
+
 
     fetch('/api/locations')
         .then(response => response.json())
@@ -31,40 +149,82 @@ document.addEventListener('DOMContentLoaded', function() {
                 return response.json();
             })
             .then(coordinates => {
-                fetch('/api/weather', {
+                fetch('/api/details', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({coordinates}) // Stringify coordinates before sending
                 })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
+                    .then(coordinates => {
+                        fetch('/api/weather', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({coordinates}) // Stringify coordinates before sending
+                        })
+                    .then(details => {
+                        fetch(`api/details`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        }).then(details =>  {
+
+                        details.json()
+                        details.json()[0] = document.createElement("clouds");
+                        details.json()[1] = document.createElement("icon");
+                        details.json()[2] = document.createElement("currentTemp");
+                        details.json()[3] = document.createElement("feelsLike");
+                        details.json()[4] = document.createElement("minTemp");
+                        details.json()[5] = document.createElement("maxTemp");
+                        details.json()[6] = document.createElement("windSpeed");
+                        details.json()[7] = document.createElement("windDir");
+                        for (let i = 0; i < details.json(); i++) {
+                            if (i === 1) {
+                                continue;
+                            }
+                            weatherText.appendChild(weatherText);
                         }
-                        // Process weather response
-                        /*console.log(response.json())*/
-                        /*return response.json();*/
                     })
-                    .then(weatherData => {
-                     /*console.log(`Weather data: ${weatherData}`)//do something else with weatherData.
-*/
-                    })
-                    .catch(error => {
-                        console.error('Error fetching weather:', error);
-                    });
             })
-            .catch(error => {
-                console.error('Error fetching coordinates:', error);
-            });
-    });
-});
+    })
 
 
 
 
 
-/* fetch('/api/coordinates')
+})//End of DOM event listener function
+
+
+/!*.then(weatherData => {
+    // Check if weatherData is empty or not
+    if (Object.keys(weatherData).length === 0) {
+        throw new Error('Empty response or invalid JSON');
+    }
+
+    // Handle weather data
+    const icon = weatherData.weather && weatherData.weather.icon;
+    console.log(icon);
+    const iconurl = "https://openweathermap.org/img/wn/" + icon + "@2x.png";
+    document.querySelector('#wicon').setAttribute('src', iconurl);
+})
+.catch(error => {
+    console.error('Error fetching weather:', error);
+});*!/
+//console.log(`Weather data: ${weatherData}`)//do something else with weatherData.
+/!*const icon = weatherData.weather && weatherData.weather.icon
+console.log(icon)
+const iconurl = " https://openweathermap.org/img/wn/" + icon + "@2x.png";
+document.querySelector('#wicon').setAttribute('src', iconurl);
+})
+.catch(error => {
+console.error('Error fetching weather:', error);
+});*!/
+
+
+/!* fetch('/api/coordinates')
      .then(response => {
          if (!response.ok) {
              throw new Error('Network response was not ok');
@@ -78,6 +238,7 @@ document.addEventListener('DOMContentLoaded', function() {
      })
      .catch(error => {
          console.error('Error fetching data:', error);
-     });*/
+     });*!/
 
 
+*/
