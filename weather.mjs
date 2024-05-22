@@ -36,9 +36,11 @@ async function getWeather(coordinates) {
             params: {
                 lat,
                 lon,
-                appid: APIkey
+                appid: APIkey,
+                units: 'metric'
             }
         });
+        console.log(weatherResponse)
        parseDetails(weatherResponse)
     } catch (error) {
         console.error("Error fetching weather:", error);

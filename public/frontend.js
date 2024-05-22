@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const dropdown = document.querySelector('#locationsDropdown');
     const goButton = document.querySelector("#getWeatherButton");
     const weatherText = document.querySelector("#weatherText");
+    const KM_PER_HOUR = 3.6
 
 
     fetch('/api/locations')
@@ -24,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ place }) // Send the selected value in the request body
+            body: JSON.stringify({place}) // Send the selected value in the request body
         })
             .then(response => {
                 if (!response.ok) {
@@ -38,16 +39,15 @@ document.addEventListener('DOMContentLoaded', function () {
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ coordinates }) // Stringify coordinates before sending
+                    body: JSON.stringify({coordinates}) // Stringify coordinates before sending
                 })
                     .then(response => {
                         if (!response.ok) {
                             throw new Error('Network response was not ok');
                         }
 
-                   /* })
-                    .then(() => {*/
-                        console.log('Beginning fetch details');
+                        /* })
+                         .then(() => {*/
                         fetch(`/api/details`)
                             .then(response => {
                                 if (!response.ok) {
@@ -64,26 +64,31 @@ document.addEventListener('DOMContentLoaded', function () {
 
                                 const iconElem = document.getElementById("weather-icon")
                                 const icon = details[1];
-                                console.log(`Here are the details of the icon ${details[1]}`)
-                                iconElem.innerHTML = `<img src="./assets/icons/icons/${icon}.png" alt="weather icon">`;
+                                iconElem.innerHTML = `<img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="weather icon">`;
 
                                 const currentTempElem = document.createElement("div");
-                                currentTempElem.textContent = `Current Temperature: ${details.currentTemp}K`;
+                                const currentTempCelcius = Math.trunc(details[2]);
+                                currentTempElem.textContent = `Current Temperature: ${currentTempCelcius}°C`;
 
                                 const feelsLikeElem = document.createElement("div");
-                                feelsLikeElem.textContent = `Feels Like: ${details.feelsLike}K`;
+                                const feelsLike = Math.trunc(details[3]);
+                                feelsLikeElem.textContent = `Feels Like: ${feelsLike}°C`;
 
                                 const minTempElem = document.createElement("div");
-                                minTempElem.textContent = `Minimum Temperature: ${details.minimumTemp}K`;
+                                const minTemp = Math.trunc(details[4]);
+                                minTempElem.textContent = `Minimum Temperature: ${minTemp}°C`;
 
                                 const maxTempElem = document.createElement("div");
-                                maxTempElem.textContent = `Maximum Temperature: ${details.maxTemp}K`;
+                                const maxTemp = Math.trunc(details[5]);
+                                maxTempElem.textContent = `Maximum Temperature: ${maxTemp}°C`;
 
                                 const windSpeedElem = document.createElement("div");
-                                windSpeedElem.textContent = `Wind Speed: ${details.windSpeed} m/s`;
+                                const windSpeed = details[6] * KM_PER_HOUR;
+                                windSpeedElem.textContent = `Wind Speed: ${windSpeed} km/hr`;
 
                                 const windDirectionElem = document.createElement("div");
-                                windDirectionElem.textContent = `Wind Direction: ${details.windDirection}°`;
+                                const windDirection = details[7];
+                                windDirectionElem.textContent = `Wind Direction: ${windDirection}°`;
 
                                 weatherText.append(
                                     cloudCoverElem,

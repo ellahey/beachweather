@@ -6,9 +6,31 @@
   <component name="ChangeListManager">
     <list default="true" id="9dc28b2e-5ea2-42be-9826-24cb0d6227a7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/3d-render-weather-app-icons-interface-elements.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/Untitled design.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/icons/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/icons/icons/01d.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/icons/icons/01n.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/icons/icons/02d.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/icons/icons/02n.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/icons/icons/03d.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/icons/icons/03n.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/icons/icons/04d.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/icons/icons/04n.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/icons/icons/09d.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/icons/icons/09n.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/icons/icons/10d.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/icons/icons/10n.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/icons/icons/11d.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/icons/icons/11n.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/icons/icons/13d.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/icons/icons/13n.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/icons/icons/50d.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/icons/icons/50n.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/icons/icons/unknown.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/sun.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/public/frontend.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/frontend.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/weather.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/weather.mjs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
