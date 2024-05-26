@@ -1,5 +1,6 @@
 // weather.mjs
 import axios from "axios";
+import {chat} from "./chat.mjs"
 
 const APIkey = 'c839d9b335bda48cf2d4c3b2b4302d20';
 const urlCoordinates = `https://api.openweathermap.org/geo/1.0/direct`;
@@ -41,7 +42,8 @@ async function getWeather(coordinates) {
             }
         });
         console.log(weatherResponse)
-       parseDetails(weatherResponse)
+       await parseDetails(weatherResponse)
+
     } catch (error) {
         console.error("Error fetching weather:", error);
         throw error;
@@ -77,9 +79,12 @@ async function parseDetails(weatherResponse) {
 
 async function getDetails() {
     if (details.length > 0) {
+        await chat(details)
         return details;
     }
 }
+
+
 
 
 

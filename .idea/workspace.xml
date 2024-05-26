@@ -5,30 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9dc28b2e-5ea2-42be-9826-24cb0d6227a7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/chat.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/3d-render-weather-app-icons-interface-elements.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/Untitled design.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/icons/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/icons/icons/01d.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/icons/icons/01n.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/icons/icons/02d.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/icons/icons/02n.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/icons/icons/03d.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/icons/icons/03n.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/icons/icons/04d.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/icons/icons/04n.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/icons/icons/09d.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/icons/icons/09n.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/icons/icons/10d.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/icons/icons/10n.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/icons/icons/11d.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/icons/icons/11n.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/icons/icons/13d.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/icons/icons/13n.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/icons/icons/50d.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/icons/icons/50n.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/icons/icons/unknown.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/sun.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/beach_weather.iml" beforeDir="false" afterPath="$PROJECT_DIR$/beach_weather.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/frontend.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/frontend.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/weather.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/weather.mjs" afterDir="false" />
@@ -42,9 +24,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="package.json" />
-        <option value="JavaScript File" />
         <option value="CSS File" />
         <option value="HTML File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -53,6 +35,9 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
@@ -116,6 +101,12 @@
       <workItem from="1710704923460" duration="2177000" />
       <workItem from="1710789437868" duration="2228000" />
       <workItem from="1710791790388" duration="48062000" />
+      <workItem from="1716558914060" duration="7816000" />
+      <workItem from="1716572736583" duration="4000" />
+      <workItem from="1716572962749" duration="4000" />
+      <workItem from="1716574637359" duration="8375000" />
+      <workItem from="1716648345740" duration="39000" />
+      <workItem from="1716648396633" duration="3204000" />
     </task>
     <servers />
   </component>

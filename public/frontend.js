@@ -60,35 +60,43 @@ document.addEventListener('DOMContentLoaded', function () {
                                 weatherText.innerHTML = '';
                                 // Create elements for each detail and append them
                                 const cloudCoverElem = document.createElement("div");
-                                cloudCoverElem.textContent = `Cloud Cover: ${details[0]}`;
+                                cloudCoverElem.id = 'clouds'
+                                cloudCoverElem.textContent = capitalize(details[0]);
 
                                 const iconElem = document.getElementById("weather-icon")
+                                iconElem.id = 'icon'
                                 const icon = details[1];
                                 iconElem.innerHTML = `<img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="weather icon">`;
 
                                 const currentTempElem = document.createElement("div");
+                                currentTempElem.id = 'current';
                                 const currentTempCelcius = Math.trunc(details[2]);
                                 currentTempElem.textContent = `Current Temperature: ${currentTempCelcius}°C`;
 
                                 const feelsLikeElem = document.createElement("div");
+                                feelsLikeElem.id = 'feels'
                                 const feelsLike = Math.trunc(details[3]);
                                 feelsLikeElem.textContent = `Feels Like: ${feelsLike}°C`;
 
                                 const minTempElem = document.createElement("div");
+                                minTempElem.id = 'min'
                                 const minTemp = Math.trunc(details[4]);
                                 minTempElem.textContent = `Minimum Temperature: ${minTemp}°C`;
 
                                 const maxTempElem = document.createElement("div");
+                                maxTempElem.id = 'max'
                                 const maxTemp = Math.trunc(details[5]);
                                 maxTempElem.textContent = `Maximum Temperature: ${maxTemp}°C`;
 
                                 const windSpeedElem = document.createElement("div");
-                                const windSpeed = details[6] * KM_PER_HOUR;
+                                windSpeedElem.id = 'speed'
+                                const windSpeed = Math.trunc(details[6]) * KM_PER_HOUR;
                                 windSpeedElem.textContent = `Wind Speed: ${windSpeed} km/hr`;
 
                                 const windDirectionElem = document.createElement("div");
-                                const windDirection = details[7];
-                                windDirectionElem.textContent = `Wind Direction: ${windDirection}°`;
+                                windDirectionElem.id =  'dir';
+                                const windDirection = degToCompass(details[7]);
+                                windDirectionElem.textContent = `Wind Direction: ${windDirection}`;
 
                                 weatherText.append(
                                     cloudCoverElem,
@@ -115,6 +123,16 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+function degToCompass(num) {
+    const val = Math.floor((num / 22.5) + 0.5);
+    const arr = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
+    return arr[(val % 16)];
+}
+
+function capitalize(s)
+{
+    return s && s[0].toUpperCase() + s.slice(1);
+}
 
 /*
 
