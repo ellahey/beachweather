@@ -1,6 +1,7 @@
 // weather.mjs
+
+
 import axios from "axios";
-import {chat} from "./chat.mjs"
 
 const APIkey = 'c839d9b335bda48cf2d4c3b2b4302d20';
 const urlCoordinates = `https://api.openweathermap.org/geo/1.0/direct`;

@@ -1,149 +1,134 @@
+.press-start-2p-regular {
+    font-family: "press start 2p", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.menu-container {
+    display: flex;
+    position: relative;
+
+    & .top-title {
+        align-self: center;
+    }
+}
+
+.menu-icon {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    width: 30px;
+    margin: 10px;
+}
+
+.bar {
+    width: 100%;
+    height: 4px;
+    background-color: #333;
+    margin: 4px 0;
+    transition: 0.3s;
+}
+
+#menu-toggle {
+    display: none;
+}
+
+.menu {
+    display: none;
+    flex-direction: column;
+    background-color: #f9f9f9;
+    position: absolute;
+    top: 40px;
+    right: 10px;
+    width: 150px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+
+.menu a {
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #333;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.menu a:last-child {
+    border-bottom: none;
+}
+
+#menu-toggle:checked ~ .menu {
+    display: flex;
+}
+
 
 #page-container {
     width: 100%;
     height: 100vh;
-    background: white;
-    display: flex;
-}
-
-#navbar-container {
-    position: relative;
-    z-index: 100;
-    width: fit-content;
-}
-
-#navbar-container .nav-links{
-    display: flex;
-    align-items: center;
-    background: white;
-    padding: 20px 15px;
-    border-radius: 12px;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
-    z-index: 120;
-}
-
-.nav-links li{
-    list-style: none;
-    margin: 0 12px;
-}
-.nav-links li a{
-    position: relative;
-    color: black;
-    font-size: 20px;
-    font-weight: 500;
-    padding: 6px 0;
-    text-decoration: none;
-}
-.nav-links li a:before{
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 3px;
-    width: 0;
     background: #34efdf;
-    border-radius: 12px;
-    transition: all 0.4s ease;
+    display: flex;
 }
-.nav-links li a:hover:before{
-    width: 100%;
-}
-.nav-links li.center a:before{
-    left: 50%;
-    transform: translateX(-50%);
-}
-.nav-links li.upward a:before{
-    width: 100%;
-    bottom: -5px;
-    opacity: 0;
-}
-.nav-links li.upward a:hover:before{
-    bottom: 0;
-    opacity: 1;
-}
-.nav-links li.forward a:before{
-    width: 100%;
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 0.4s ease;
-}
-.nav-links li.forward a:hover:before{
-    transform: scaleX(1);
-    transform-origin: left;
-}
-
 
 body {
-    font-family: Georgia, serif;
+    font-family: "Press Start 2P", system-ui
 }
 
-
 #locationsDropdown {
-    font-family: Georgia, serif;
+    font-family: "Arial Black", serif;
     font-size: larger;
     font-weight: normal;
     text-align: center;
     border-radius: 5px;
     margin-bottom: 10px;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
 .split {
-    height: 100%;
+    height: 70%;
     width: 50%;
-    position: fixed;
     z-index: 1;
     top: 0;
     overflow-x: hidden;
     padding-top: 20px;
 }
 
-/* Control the left side */
-.left {
-    left: 0;
-    background-image: url("./assets/beach_background.png");
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
+#right {
+    text-align: center;
 }
 
 .dd_container {
     display: grid;
+    width: fit-content;
     align-items: center;
-    background: #fff;
+    background: white;
     padding: 20px 15px;
     border-radius: 12px;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
-    z-index: 120;
+    margin-left: 10%;
+    margin-top: 25%;
+    z-index: 2;
 
     & button {
         border-radius: 12px;
         padding-top: 5px;
         padding-bottom: 5px;
-        width: 40px;
+        width: fit-content;
         margin: auto;
         font-family: inherit;
         font-size: larger;
         background-color: mediumturquoise;
     }
+
 }
 
-/* Control the right side */
-.right {
-    right: 0;
-    background-color: white;
-
-    & p.weather_text {
-        color: black;
-    }
+.text-container {
+    display: grid;
+    width: fit-content;
+    align-items: center;
+    background: white;
+    padding: 20px 15px;
+    border-radius: 12px;
+    margin-left: 10%;
+    margin-top: 25%;
+    z-index: 2;
 }
 
-/* Content centered horizontally and vertically */
-.centered {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-}
 

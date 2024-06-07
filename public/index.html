@@ -6,41 +6,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="/frontend.js" defer></script>
     <link rel="stylesheet" href="./styling.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <title>Beach weather</title>
 </head>
 
 <body>
 
+<div class="menu-container">
+    <input type="checkbox" id="menu-toggle">
+    <label for="menu-toggle" class="menu-icon">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </label>
+    <nav class="menu">
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Contact</a>
+    </nav>
+    <div class="title-box">
+        <h2 id="title">Should I Go to the Beach?</h2>
+    </div>
 
-<div id="navbar-container">
-    <ul class="nav-links">
-        <li class="center"><a href="#">About</a></li>
-        <li class="upward"><a href="#">Contact</a></li>
-    </ul>
 </div>
 
 
 <div id="page-container">
 
-    <div class="split left">
-        <div class="centered">
-            <div class="dd_container">
-                <h1>Choose a location:</h1>
-                <label for="locationsDropdown"></label>
-                <select id="locationsDropdown"></select> <!-- Dropdown for locations -->
-                <button type="button" id="getWeatherButton">Go</button>
-            </div>
+    <div class="split" id="left">
+        <div class="dd_container">
+            <h2>Choose a location:</h2>
+            <label for="locationsDropdown"></label>
+            <select id="locationsDropdown"></select> <!-- Dropdown for locations -->
+            <button type="button" id="getWeatherButton">Go</button>
         </div>
     </div>
 
 
-    <div class="split right">
+    <div class="split" id="right">
         <div class="conditions">
             <h2>Conditions</h2>
-            <p class="weather_text" id="weatherText"></p>
-            <div id = "weather-icon">
-               </div>
+            <div class="text-container">
+                <p class="weather_text" id="weatherText"></p>
+                <div id="weather-icon">
+                </div>
+            </div>
         </div>
     </div>
 
