@@ -43,8 +43,7 @@ async function getWeather(coordinates) {
             }
         });
         console.log(weatherResponse)
-       await parseDetails(weatherResponse)
-
+        await parseDetails(weatherResponse);
     } catch (error) {
         console.error("Error fetching weather:", error);
         throw error;
@@ -80,7 +79,7 @@ async function parseDetails(weatherResponse) {
 
 async function getDetails() {
     if (details.length > 0) {
-        await chat(details)
+       /* await chat(details)*/
         return details;
     }
 }

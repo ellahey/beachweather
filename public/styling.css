@@ -121,14 +121,21 @@ body {
 
 .text-container {
     display: grid;
-    width: fit-content;
+    width: 70%;
     align-items: center;
     background: white;
     padding: 20px 15px;
     border-radius: 12px;
-    margin-left: 10%;
+    margin-left: 15%;
     margin-top: 25%;
     z-index: 2;
+}
+
+#weather_text {
+    font-family: "Arial Black", serif;
+    font-size: larger;
+    font-weight: normal;
+    text-align: center;
 }
 
 
