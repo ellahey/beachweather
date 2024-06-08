@@ -2,7 +2,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const dropdown = document.querySelector('#locationsDropdown');
     const goButton = document.querySelector("#getWeatherButton");
     const weatherText = document.querySelector("#weatherText");
+    const answerText = document.querySelector("#answerText");
     const KM_PER_HOUR = 3.6
+    const input = ` {"inputs" : "Given the weather conditions provided, tell me if it is a good day to go to the beach. Please
+        be specific about the suitability of the weather for a range of different beach activities, including
+        swimming, surfing, sunbathing, hanging out / relaxing, picnicking, sports (volleyball, running), kite flying, or other common
+        beach activities:`
 
 
     fetch('/api/locations')
@@ -66,8 +71,9 @@ document.addEventListener('DOMContentLoaded', function () {
                                 const iconElem = document.getElementById("weather-icon")
                                 iconElem.id = 'icon'
                                 const icon = details[1];
-                                iconElem.innerHTML = `<img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="weather icon">`;
-
+                                if (icon) {
+                                    iconElem.innerHTML = `<img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="weather icon">`;
+                                }
                                 const currentTempElem = document.createElement("div");
                                 currentTempElem.id = 'current';
                                 const currentTempCelcius = Math.trunc(details[2]);
@@ -94,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 windSpeedElem.textContent = `Wind Speed: ${windSpeed} km/hr`;
 
                                 const windDirectionElem = document.createElement("div");
-                                windDirectionElem.id =  'dir';
+                                windDirectionElem.id = 'dir';
                                 const windDirection = degToCompass(details[7]);
                                 windDirectionElem.textContent = `Wind Direction: ${windDirection}`;
 
@@ -108,6 +114,21 @@ document.addEventListener('DOMContentLoaded', function () {
                                     windSpeedElem,
                                     windDirectionElem
                                 );
+                                const detailsArray =
+                                    [cloudCoverElem.textContent,
+                                        currentTempElem.textContent,
+                                        feelsLikeElem.textContent,
+                                        minTempElem.textContent,
+                                        maxTempElem.textContent,
+                                        windSpeedElem.textContent,
+                                        windDirectionElem.textContent
+                                    ]
+                                query(input + detailsArray + '"}').then(
+                                    answer => {
+                                        const answerString = JSON.stringify(answer)
+                                        answerText.append(answerString)
+                                    }
+                                )
                             })
                             .catch(error => {
                                 console.error('Error fetching weather details:', error);
@@ -129,7 +150,24 @@ function degToCompass(num) {
     return arr[(val % 16)];
 }
 
-function capitalize(s)
-{
+function capitalize(s) {
     return s && s[0].toUpperCase() + s.slice(1);
 }
+
+async function query(data) {
+    const hf_token = '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';
+    const response = await fetch(
+        "https://api-inference.huggingface.co/models/google/flan-t5-xxl",
+        {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${hf_token}`
+            },
+            method: "POST",
+            body: JSON.stringify(data),
+        }
+    );
+    const result = await response.json();
+    return result;
+}
+
