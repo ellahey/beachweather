@@ -4,10 +4,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const weatherText = document.querySelector("#weatherText");
     const answerText = document.querySelector("#answerText");
     const KM_PER_HOUR = 3.6
-    const input = ` {"inputs" : "Given the weather conditions provided, tell me if it is a good day to go to the beach. Please
-        be specific about the suitability of the weather for a range of different beach activities, including
-        swimming, surfing, sunbathing, hanging out / relaxing, picnicking, sports (volleyball, running), kite flying, or other common
-        beach activities:`
+    const input = `Given the weather conditions provided here, tell me if it is a good day to go to the beach. 
+     Please be sure to give your detailed reasoning for your answer based on the specific conditions I have provided here:`
 
 
     fetch('/api/locations')
@@ -123,51 +121,60 @@ document.addEventListener('DOMContentLoaded', function () {
                                         windSpeedElem.textContent,
                                         windDirectionElem.textContent
                                     ]
-                                query(input + detailsArray + '"}').then(
+                                const requestBody = {
+                                    inputs: input + detailsArray.join(', ')
+                                };
+
+                                const requestBodyString = JSON.stringify(requestBody);
+                                query(requestBodyString).then(
                                     answer => {
-                                        const answerString = JSON.stringify(answer)
-                                        answerText.append(answerString)
+                                        const answerString = JSON.stringify(answer);
+                                        const extractedValue = answer[0].generated_text;
+                                        answerText.append(extractedValue);
                                     }
-                                )
+                                ).catch(error => {
+                                    console.error('Error fetching answer:', error);
+                                })
+                                    .catch(error => {
+                                        console.error('Error fetching weather details:', error);
+                                    });
                             })
                             .catch(error => {
-                                console.error('Error fetching weather details:', error);
+                                console.error('Error fetching weather:', error);
                             });
                     })
                     .catch(error => {
-                        console.error('Error fetching weather:', error);
+                        console.error('Error fetching coordinates:', error);
                     });
-            })
-            .catch(error => {
-                console.error('Error fetching coordinates:', error);
             });
     });
 });
 
-function degToCompass(num) {
-    const val = Math.floor((num / 22.5) + 0.5);
-    const arr = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
-    return arr[(val % 16)];
-}
+    function degToCompass(num) {
+        const val = Math.floor((num / 22.5) + 0.5);
+        const arr = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
+        return arr[(val % 16)];
+    }
 
-function capitalize(s) {
-    return s && s[0].toUpperCase() + s.slice(1);
-}
+    function capitalize(s) {
+        return s && s[0].toUpperCase() + s.slice(1);
+    }
 
-async function query(data) {
-    const hf_token = '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';
-    const response = await fetch(
-        "https://api-inference.huggingface.co/models/google/flan-t5-xxl",
-        {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${hf_token}`
-            },
-            method: "POST",
-            body: JSON.stringify(data),
-        }
-    );
-    const result = await response.json();
-    return result;
-}
+    async function query(data) {
+        const hf_token = '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';
+        const response = await fetch(
+            "https://api-inference.huggingface.co/models/google/flan-t5-xxl",
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${hf_token}`
+                },
+                method: "POST",
+                body: data,
+            }
+        );
+        const result = await response.json();
+        return result;
+    }
+
 
