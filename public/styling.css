@@ -58,6 +58,7 @@
 
 #menu-toggle:checked ~ .menu {
     display: flex;
+    z-index: 50;
 }
 
 
