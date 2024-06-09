@@ -48,9 +48,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         if (!response.ok) {
                             throw new Error('Network response was not ok');
                         }
-
-                        /* })
-                         .then(() => {*/
                         fetch(`/api/details`)
                             .then(response => {
                                 if (!response.ok) {
