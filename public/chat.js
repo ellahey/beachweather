@@ -11,6 +11,3 @@ async function query(data) {
     return await response.json();
 }
 
-query({"inputs": "Can you please let us know more details about your "}).then((response) => {
-    console.log(JSON.stringify(response));
-});

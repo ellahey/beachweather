@@ -1,8 +1,9 @@
+
 document.addEventListener('DOMContentLoaded', function () {
     const dropdown = document.querySelector('#locationsDropdown');
     const goButton = document.querySelector("#getWeatherButton");
-    const weatherText = document.querySelector("#weatherText");
-    const answerText = document.querySelector("#answerText");
+    let weatherText = document.querySelector("#weatherText");
+    let answerText = document.querySelector("#answerText");
     const KM_PER_HOUR = 3.6
     const input = `Given the weather conditions provided here, tell me if it is a good day to go to the beach. 
      Please be sure to give your detailed reasoning for your answer based on the specific conditions I have provided here:`
@@ -12,7 +13,10 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(response => response.json())
         .then(locations => {
             // Populate dropdown with locations
-            locations.forEach(location => {
+            locations.forEach((location) => {
+                if (location.includes('(')) {
+                    location = location.replace(/ \([\s\S]*?\)/g, "");
+                }
                 const option = document.createElement("option");
                 option.value = location;
                 option.text = location;
@@ -21,8 +25,9 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .catch(error => console.error('Error fetching locations:', error));
 
-    goButton.addEventListener('click', function () {
-        let place = dropdown.value; // Get the selected value from the dropdown menu
+    goButton.addEventListener('click', function (node, child) {
+        let place = '';
+        place = dropdown.value; // Get the selected value from the dropdown menu
         fetch('/api/coordinates', {
             method: 'POST',
             headers: {
@@ -59,44 +64,47 @@ document.addEventListener('DOMContentLoaded', function () {
                                 /*clear previous data*/
                                 weatherText.innerHTML = '';
                                 // Create elements for each detail and append them
-                                const cloudCoverElem = document.createElement("div");
+                                let cloudCoverElem = document.createElement("div");
                                 cloudCoverElem.id = 'clouds'
                                 cloudCoverElem.textContent = capitalize(details[0]);
 
-                                const iconElem = document.getElementById("weather-icon")
-                                iconElem.id = 'icon'
-                                const icon = details[1];
-                                if (icon) {
+                                let iconElem = document.getElementById("weather-icon");
+                                let icon = details[1];
+                                if (iconElem) {
                                     iconElem.innerHTML = `<img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="weather icon">`;
+                                } else {
+                                    iconElem = document.createElement("div");
+                                    iconElem.innerHTML = `<img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="weather icon">`;
+
                                 }
-                                const currentTempElem = document.createElement("div");
+                                let currentTempElem = document.createElement("div");
                                 currentTempElem.id = 'current';
-                                const currentTempCelcius = Math.trunc(details[2]);
+                                let currentTempCelcius = Math.trunc(details[2]);
                                 currentTempElem.textContent = `Current Temperature: ${currentTempCelcius}°C`;
 
-                                const feelsLikeElem = document.createElement("div");
+                                let feelsLikeElem = document.createElement("div");
                                 feelsLikeElem.id = 'feels'
-                                const feelsLike = Math.trunc(details[3]);
+                                let feelsLike = Math.trunc(details[3]);
                                 feelsLikeElem.textContent = `Feels Like: ${feelsLike}°C`;
 
-                                const minTempElem = document.createElement("div");
+                                let minTempElem = document.createElement("div");
                                 minTempElem.id = 'min'
-                                const minTemp = Math.trunc(details[4]);
+                                let minTemp = Math.trunc(details[4]);
                                 minTempElem.textContent = `Minimum Temperature: ${minTemp}°C`;
 
-                                const maxTempElem = document.createElement("div");
+                                let maxTempElem = document.createElement("div");
                                 maxTempElem.id = 'max'
-                                const maxTemp = Math.trunc(details[5]);
+                                let maxTemp = Math.trunc(details[5]);
                                 maxTempElem.textContent = `Maximum Temperature: ${maxTemp}°C`;
 
-                                const windSpeedElem = document.createElement("div");
+                                let windSpeedElem = document.createElement("div");
                                 windSpeedElem.id = 'speed'
-                                const windSpeed = Math.trunc(details[6]) * KM_PER_HOUR;
+                                let windSpeed = Math.trunc(details[6]) * KM_PER_HOUR;
                                 windSpeedElem.textContent = `Wind Speed: ${windSpeed} km/hr`;
 
-                                const windDirectionElem = document.createElement("div");
+                                let windDirectionElem = document.createElement("div");
                                 windDirectionElem.id = 'dir';
-                                const windDirection = degToCompass(details[7]);
+                                let windDirection = degToCompass(details[7]);
                                 windDirectionElem.textContent = `Wind Direction: ${windDirection}`;
 
                                 weatherText.append(
@@ -109,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                     windSpeedElem,
                                     windDirectionElem
                                 );
-                                const detailsArray =
+                                let detailsArray =
                                     [cloudCoverElem.textContent,
                                         currentTempElem.textContent,
                                         feelsLikeElem.textContent,
@@ -118,16 +126,16 @@ document.addEventListener('DOMContentLoaded', function () {
                                         windSpeedElem.textContent,
                                         windDirectionElem.textContent
                                     ]
-                                const requestBody = {
+                                let requestBody = {
                                     inputs: input + detailsArray.join(', ')
                                 };
 
-                                const requestBodyString = JSON.stringify(requestBody);
+                                let requestBodyString = JSON.stringify(requestBody);
                                 query(requestBodyString).then(
                                     answer => {
-                                        const answerString = JSON.stringify(answer);
-                                        const extractedValue = answer[0].generated_text;
-                                        answerText.append(extractedValue);
+                                        let extractedValue = answer[0].generated_text;
+                                            answerText.innerHTML = extractedValue;
+
                                     }
                                 ).catch(error => {
                                     console.error('Error fetching answer:', error);
@@ -147,31 +155,31 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-    function degToCompass(num) {
-        const val = Math.floor((num / 22.5) + 0.5);
-        const arr = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
-        return arr[(val % 16)];
-    }
+function degToCompass(num) {
+    let val = Math.floor((num / 22.5) + 0.5);
+    let arr = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
+    return arr[(val % 16)];
+}
 
-    function capitalize(s) {
-        return s && s[0].toUpperCase() + s.slice(1);
-    }
+function capitalize(s) {
+    return s && s[0].toUpperCase() + s.slice(1);
+}
 
-    async function query(data) {
-        const hf_token = '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';
-        const response = await fetch(
-            "https://api-inference.huggingface.co/models/google/flan-t5-xxl",
-            {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${hf_token}`
-                },
-                method: "POST",
-                body: data,
-            }
-        );
-        const result = await response.json();
-        return result;
-    }
+async function query(data) {
+    const hf_token = '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';
+    let response = await fetch(
+        "https://api-inference.huggingface.co/models/google/flan-t5-xxl",
+        {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${hf_token}`
+            },
+            method: "POST",
+            body: data,
+        }
+    );
+    return await response.json();
+}
+
 
 
