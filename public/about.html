@@ -1,10 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
     <title>About</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="manifest" href="/assets/site.webmanifest">
+    <link rel="stylesheet" href="./about.css">
 </head>
+
 <body>
 
+<!--Top navbar-->
+<div class="menu-container">
+    <input type="checkbox" id="menu-toggle">
+    <label for="menu-toggle" class="menu-icon">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </label>
+    <nav class="menu">
+        <a href="/">Home</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+    </nav>
+    <div class="title-box">
+        <h2 id="title">Should I Go to the Beach?</h2>
+    </div>
+
+</div>  <!--End top navbar-->
+
+
+<div id="page-container">
+    <h1 id="about">About</h1>
+    <div id="ab_text-container">
+    <p id="about-text">This page was built using Node.js (+ Axios, Express).
+        Locations of beaches in the Netherlands adapted from
+        <a href="https://nl.wikipedia.org/wiki/Lijst_van_badplaatsen_in_Nederland">Wikipedia</a>.
+        Favicon built with <a href="https://favicon.io/">Favicon.io</a>. Weather data and icons are
+        from <a href="https://openweathermap.org/">openweather.org</a>. AI-generated response uses
+        <a href="https://huggingface.co/OpenAssistant/oasst-sft-4-pythia-12b-epoch-3.5">
+            OpenAssistant/oasst-sft-4-pythia-12b-epoch-3.5</a>, from <a href="https://huggingface.co/">Hugging Face</a>.
+    </div>
+
+</div>
 </body>
 </html>
+
+
