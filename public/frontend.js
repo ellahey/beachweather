@@ -153,7 +153,22 @@ document.addEventListener('DOMContentLoaded', function () {
                     });
             });
     });
+    const menuToggle = document.querySelector('#menu-toggle');
+    const menu = document.querySelector('.menu');
+
+    menu.addEventListener('click', function () {
+        menuToggle.checked = false;
+    });
+
+    if (menuToggle.checked) {
+        window.addEventListener("click", hideMenu);
+        hideMenu();
+    }
+
 });
+function hideMenu(){
+    document.querySelector('#menu-toggle').checked = false;
+}
 
 function degToCompass(num) {
     let val = Math.floor((num / 22.5) + 0.5);
