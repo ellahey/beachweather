@@ -1,14 +1,10 @@
 import OpenAI from "openai";
+import axios from "axios";
 const ORG_ID = 'org-3owQllujG5dSWRhwQZPrQXcv'
 const PROJ_ID = 'proj_OyMaD0S7Udrk4pQ8ZKIDDYD1'
 const API_KEY = 'sk-proj-AMEIQfGgh0tHeIWHGXBiT3BlbkFJEuvYUeKdESNjUw3xLjIJ'
 
-const openai = new OpenAI({
-    organization: `${ORG_ID}`,
-    project: `${PROJ_ID}`,
-});
-
-const axios = require('axios');
+new OpenAI({ apiKey: `${API_KEY}` })
 
 async function callOpenAI(weather) {
     axios.post('https://api.openai.com/v1/chat/completions',
@@ -34,3 +30,5 @@ async function callOpenAI(weather) {
             console.error(error);
         });
 }
+
+export { callOpenAI }

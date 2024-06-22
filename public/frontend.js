@@ -2,9 +2,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     const dropdown = document.querySelector('#locationsDropdown');
     const goButton = document.querySelector("#getWeatherButton");
-    let weatherText = document.querySelector("#weatherText");
     let answerText = document.querySelector("#answerText");
-    const KM_PER_HOUR = 3.6
     const input = `Given the weather conditions provided here, tell me if it is a good day to go to the beach. 
      Please be sure to give your detailed reasoning for your answer based on the specific conditions I have provided here:`
 
@@ -61,25 +59,25 @@ document.addEventListener('DOMContentLoaded', function () {
                                 return response.json();
                             })
                             .then(details => {
-                               createElements(details) /*clear previous data*/
-
-                                let requestBody = {
-                                    inputs: input + detailsArray.join(', ')
-                                };
-
-                                let requestBodyString = JSON.stringify(requestBody);
+                               const detailsArray = createElements(details)
                                 try {
-                                    fetch(`/api/chat`)
-                                        .then(response => {
-                                            if (!response.ok) {
-                                                throw new Error('Network response was not ok');
-                                            }
-                                            return response.json();
-                                        })
-                                        .then(chat => {})
-                                        .catch(error => {
-                                            console.error('Error fetching weather:', error);
-                                        });
+                                    let requestBody = {
+                                        inputs: input + detailsArray.join(', ')
+                                    };
+
+                                    let requestBodyString = JSON.stringify(requestBody);
+                                    fetch('/api/chat', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        },
+                                        body: JSON.stringify({requestBodyString}) // Stringify coordinates before sending
+                                    })
+                                        .then(chat => {answerText.append(chat)})
+
+                                } catch (error) {
+                                    console.error('Error fetching chat:', error);
+                                }
                                 /*query(requestBodyString).then(
                                     answer => {
                                         let extractedValue = answer[0].generated_text;
@@ -131,6 +129,8 @@ function capitalize(s) {
 }
 
 function createElements(details) {
+    let weatherText = document.querySelector("#weatherText");
+    const KM_PER_HOUR = 3.6
     weatherText.innerHTML = '';
     // Create elements for each detail and append them
     let cloudCoverElem = document.createElement("div");
@@ -197,7 +197,7 @@ function createElements(details) {
         ]
 return detailsArray;
 }
-}
+
 
 
 
