@@ -3,8 +3,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const dropdown = document.querySelector('#locationsDropdown');
     const goButton = document.querySelector("#getWeatherButton");
     let answerText = document.querySelector("#answerText");
-    const input = `Given the weather conditions provided here, tell me if it is a good day to go to the beach. 
-     Please be sure to give your detailed reasoning for your answer based on the specific conditions I have provided here:`
+    /*const input = `Given the weather conditions provided here, tell me if it is a good day to go to the beach.
+     Please be sure to give your detailed reasoning for your answer based on the specific conditions I have provided here:`*/
 
 
     fetch('/api/locations')
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                const detailsArray = createElements(details)
                                 try {
                                     let requestBody = {
-                                        inputs: input + detailsArray.join(', ')
+                                        inputs: detailsArray.join(', ')
                                     };
 
                                     let requestBodyString = JSON.stringify(requestBody);
@@ -71,6 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                         headers: {
                                             'Content-Type': 'application/json'
                                         },
+
                                         body: JSON.stringify({requestBodyString}) // Stringify coordinates before sending
                                     })
                                         .then(chat => {answerText.append(chat)})
