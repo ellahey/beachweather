@@ -2,14 +2,14 @@
 
 
 import axios from "axios";
-
+import { logger } from "./logger.mjs"
+import req from "express/lib/request.js";
 const APIkey = 'c839d9b335bda48cf2d4c3b2b4302d20';
 const urlCoordinates = `https://api.openweathermap.org/geo/1.0/direct`;
 const urlWeather = `https://api.openweathermap.org/data/2.5/weather`;
 let details;
 
 async function getCoordinates(place) {
-    console.log("Fetching coordinates for place:", place);
     try {
         const response = await axios.get(urlCoordinates, {
             params: {
@@ -18,6 +18,7 @@ async function getCoordinates(place) {
             }
 
         });
+        logger.info(`Incoming request: ${req.method} ${req.url}`);
         const {lat, lon} = response.data[0];
         const coordArray = [lat, lon];
         console.log(`Latitude: ${lat}, Longitude: ${lon}`);
@@ -29,9 +30,7 @@ async function getCoordinates(place) {
 }
 
 async function getWeather(coordinates) {
-    console.log("Fetching weather")
     try {
-        console.log("Coordinates:", coordinates); // Log coordinates
         const lat = coordinates[0];
         const lon = coordinates[1];
         const weatherResponse = await axios.get(urlWeather, {
@@ -42,7 +41,7 @@ async function getWeather(coordinates) {
                 units: 'metric'
             }
         });
-        console.log(weatherResponse)
+        logger.info(`Incoming request: ${req.method} ${req.url}`);
         await parseDetails(weatherResponse);
     } catch (error) {
         console.error("Error fetching weather:", error);

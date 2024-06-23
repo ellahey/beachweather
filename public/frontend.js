@@ -79,12 +79,12 @@ document.addEventListener('DOMContentLoaded', function () {
                                             if (!response.ok) {
                                                 throw new Error('Network response was not ok');
                                             }
-                                            console.log(response.json)
-                                            //return response.json();
+                                            return response.json()
                                         })
                                         .then(chat => {
-                                            console.log(`Here is the chat object: ${chat}`)
-                                            answerText.append(chat[0].content)
+
+                                            console.log(`Here is the chat object: ${JSON.stringify(chat)}`);
+                                            answerText.append(chat.content)
                                         })
 
                                 } catch (error) {

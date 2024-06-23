@@ -21,7 +21,8 @@
     "jsdom": "^24.0.0",
     "openai": "^4.52.0",
     "postcss": "^8.4.38",
-    "validate.js": "^0.13.1"
+    "validate.js": "^0.13.1",
+    "winston": "^3.13.0"
   },
   "devDependencies": {
     "postcss-preset-env": "^9.5.2"

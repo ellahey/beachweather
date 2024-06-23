@@ -1,7 +1,7 @@
 // logger.js
 import { createLogger, format, transports } from "winston";
 
-const logger = createLogger({
+const frontEnd_logger = createLogger({
     level: 'info', // Adjust the log level as needed
     format: format.combine(
         format.colorize(),
@@ -12,4 +12,4 @@ const logger = createLogger({
     ],
 });
 
-export {logger}
+export { frontEnd_logger }
