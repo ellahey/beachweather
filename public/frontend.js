@@ -3,8 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const dropdown = document.querySelector('#locationsDropdown');
     const goButton = document.querySelector("#getWeatherButton");
     let answerText = document.querySelector("#answerText");
-    /*const input = `Given the weather conditions provided here, tell me if it is a good day to go to the beach.
-     Please be sure to give your detailed reasoning for your answer based on the specific conditions I have provided here:`*/
+
 
 
     fetch('/api/locations')
@@ -61,20 +60,32 @@ document.addEventListener('DOMContentLoaded', function () {
                             .then(details => {
                                const detailsArray = createElements(details)
                                 try {
-                                    let requestBody = {
-                                        inputs: detailsArray.join(', ')
-                                    };
+                                   let requestBody = detailsArray.join(', ')
+                                    /*let requestBody = {
+                                        inputs: detailsArray.join(', ')*/
+                                    //};
 
-                                    let requestBodyString = JSON.stringify(requestBody);
+                                    //let requestBodyString = JSON.stringify(requestBody);
                                     fetch('/api/chat', {
                                         method: 'POST',
                                         headers: {
                                             'Content-Type': 'application/json'
                                         },
-
-                                        body: JSON.stringify({requestBodyString}) // Stringify coordinates before sending
+//changed requestBodyString below to requestBody
+                                        //body: JSON.stringify(requestBody) // Stringify coordinates before sending
+                                    body: JSON.stringify({requestBody})
                                     })
-                                        .then(chat => {answerText.append(chat)})
+                                        .then(response => {
+                                            if (!response.ok) {
+                                                throw new Error('Network response was not ok');
+                                            }
+                                            console.log(response.json)
+                                            //return response.json();
+                                        })
+                                        .then(chat => {
+                                            console.log(`Here is the chat object: ${chat}`)
+                                            answerText.append(chat[0].content)
+                                        })
 
                                 } catch (error) {
                                     console.error('Error fetching chat:', error);

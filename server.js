@@ -54,7 +54,7 @@ app.get('/api/details', async (req, res) => {
 
 app.post('/api/chat', async (req, res) => {
     try {
-        const weather = req.body
+        let weather = req.body
         const answer =  callOpenAI(weather)
         res.json(answer);
     } catch (error) {
