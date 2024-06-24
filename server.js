@@ -1,9 +1,8 @@
-
 import express from "express";
-import { logger }  from "./logger.mjs";
+import {logger} from "./logger.mjs";
 import {getCoordinates, getDetails, getWeather} from "./weather.mjs";
-import { getLocations } from "./locations.mjs";
-import { callOpenAI } from "./public/chat.js";
+import {getLocations} from "./locations.mjs";
+import {callOpenAI} from "./public/chat.js";
 
 const app = express();
 const port = 3000;
@@ -64,15 +63,22 @@ app.get('/api/details', async (req, res) => {
 app.post('/api/chat', async (req, res) => {
     try {
         let weather = req.body
-        const answer =  callOpenAI(weather)
-        res.json(answer);
+        const answer = await callOpenAI(weather)
         logger.info(`Incoming request: ${req.method} ${req.url}`)
+        return res.json(answer)
     } catch (error) {
         console.error("Failed to fetch weather details:", error);
         res.status(500).json({ message: "Failed to fetch weather details. Please try again later." });
     }
 });
 
+//To handle frontent logs:
+// Example route to handle frontend logs
+app.post('/api/log', (req, res) => {
+    const { level, message } = req.body;
+    logger.log({ level, message });
+    res.status(200).send('Log received');
+});
 
 app.listen(port, () => {
     logger.info(`Server is running on port ${port}`);

@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const dropdown = document.querySelector('#locationsDropdown');
     const goButton = document.querySelector("#getWeatherButton");
     let answerText = document.querySelector("#answerText");
+    let answer;
 
 
 
@@ -66,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                     //};
 
                                     //let requestBodyString = JSON.stringify(requestBody);
-                                    fetch('/api/chat', {
+                                      fetch('/api/chat', {
                                         method: 'POST',
                                         headers: {
                                             'Content-Type': 'application/json'
@@ -74,17 +75,22 @@ document.addEventListener('DOMContentLoaded', function () {
 //changed requestBodyString below to requestBody
                                         //body: JSON.stringify(requestBody) // Stringify coordinates before sending
                                     body: JSON.stringify({requestBody})
-                                    })
-                                        .then(response => {
-                                            if (!response.ok) {
-                                                throw new Error('Network response was not ok');
-                                            }
-                                            return response.json()
-                                        })
-                                        .then(chat => {
-
-                                            console.log(`Here is the chat object: ${JSON.stringify(chat)}`);
-                                            answerText.append(chat.content)
+                                    }).then(response => {
+                                          if (!response.ok) {
+                                              throw new Error('Open AI network response was not ok');
+                                          }
+                                          return response.json();
+                                      })
+                                          .then(chat => {
+                                              try {
+                                              sendLog('info', `Full response object: ${JSON.stringify(chat)}`); // Log the full response object
+                                              answerText.append(JSON.stringify(chat)); // Append the content to answerText
+                                              } catch (error) {
+                                                  sendLog('Unexpected response structure', error);
+                                              }
+                                            //console.log(`Here is the chat object: ${JSON.stringify(chat)}`);
+                                            //completion.choices[0].message.content
+                                            //answerText.append(chat[0].message.content)
                                         })
 
                                 } catch (error) {
@@ -209,6 +215,32 @@ function createElements(details) {
         ]
 return detailsArray;
 }
+
+function sendLog(level, message) {
+    fetch('/api/log', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ level, message })
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+        })
+        .then(data => {
+            console.log('Log sent successfully:', data);
+        })
+        .catch(error => {
+            console.error('Error sending log:', error);
+        });
+}
+
+// Usage example
+sendLog('info', 'This is an info log from the frontend');
+
 
 
 
