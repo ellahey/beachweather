@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     goButton.addEventListener('click', function (node, child) {
         let place = '';
+        answerText.textContent = '';
         place = dropdown.value; // Get the selected value from the dropdown menu
         fetch('/api/coordinates', {
             method: 'POST',
@@ -84,7 +85,8 @@ document.addEventListener('DOMContentLoaded', function () {
                                           .then(chat => {
                                               try {
                                               sendLog('info', `Full response object: ${JSON.stringify(chat)}`); // Log the full response object
-                                              answerText.append(JSON.stringify(chat)); // Append the content to answerText
+                                              const chatNoQuotes = JSON.stringify(chat).replace(/['"]+/g, '')
+                                                  answerText.append(chatNoQuotes)
                                               } catch (error) {
                                                   sendLog('Unexpected response structure', error);
                                               }
