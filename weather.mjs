@@ -1,8 +1,9 @@
 import axios from 'axios';
 import {logger} from './logger.mjs'
 import req from 'express/lib/request.js';
+import 'dotenv/config'
 
-const APIkey = 'c839d9b335bda48cf2d4c3b2b4302d20';
+const APIkey = process.env.OPEN_WEATHER_KEY;
 const urlCoordinates = `https://api.openweathermap.org/geo/1.0/direct`;
 const urlWeather = `https://api.openweathermap.org/data/2.5/weather`;
 let details;
