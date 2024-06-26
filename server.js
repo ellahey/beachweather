@@ -2,7 +2,7 @@ import express from 'express';
 import {logger} from './logger.mjs';
 import {getCoordinates, getDetails, getWeather} from './weather.mjs';
 import {getLocations} from './locations.mjs';
-import {callOpenAI} from './public/chat.js';
+import {callOpenAI} from './chat.js';
 
 const app = express();
 const port = 3000;
