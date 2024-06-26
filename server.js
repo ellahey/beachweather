@@ -1,8 +1,8 @@
-import express from "express";
-import {logger} from "./logger.mjs";
-import {getCoordinates, getDetails, getWeather} from "./weather.mjs";
-import {getLocations} from "./locations.mjs";
-import {callOpenAI} from "./public/chat.js";
+import express from 'express';
+import {logger} from './logger.mjs';
+import {getCoordinates, getDetails, getWeather} from './weather.mjs';
+import {getLocations} from './locations.mjs';
+import {callOpenAI} from './public/chat.js';
 
 const app = express();
 const port = 3000;
@@ -20,8 +20,8 @@ app.get('/api/locations', async (req, res) => {
         res.json(locations);
         logger.info(`Incoming request: ${req.method} ${req.url}`)
     } catch (error) {
-        console.error("Failed to fetch locations:", error);
-        res.status(500).json({ message: "Failed to fetch locations. Please try again later." });
+        console.error('Failed to fetch locations:', error);
+        res.status(500).json({ message: 'Failed to fetch locations. Please try again later.' });
     }
 });
 
@@ -32,8 +32,8 @@ app.post('/api/coordinates', async (req, res) => {
         res.json(coordinates);
         logger.info(`Incoming request: ${req.method} ${req.url}`)
     } catch (error) {
-        console.error("Failed to fetch coordinates:", error);
-        res.status(500).json({ message: "Failed to fetch coordinates. Please try again later." });
+        console.error('Failed to fetch coordinates:', error);
+        res.status(500).json({ message: 'Failed to fetch coordinates. Please try again later.' });
     }
 });
 
@@ -44,8 +44,8 @@ app.post('/api/weather', async (req, res) => {
         res.json(weatherData);
         logger.info(`Incoming request: ${req.method} ${req.url}`)
     } catch (error) {
-        console.error("Failed to fetch weather:", error);
-        res.status(500).json({ message: "Failed to fetch weather. Please try again later." });
+        console.error('Failed to fetch weather:', error);
+        res.status(500).json({ message: 'Failed to fetch weather. Please try again later.' });
     }
 });
 
@@ -55,8 +55,8 @@ app.get('/api/details', async (req, res) => {
         res.json(details);
         logger.info(`Incoming request: ${req.method} ${req.url}`)
     } catch (error) {
-        console.error("Failed to fetch weather details:", error);
-        res.status(500).json({ message: "Failed to fetch weather details. Please try again later." });
+        console.error('Failed to fetch weather details:', error);
+        res.status(500).json({ message: 'Failed to fetch weather details. Please try again later.' });
     }
 });
 
@@ -67,13 +67,11 @@ app.post('/api/chat', async (req, res) => {
         logger.info(`Incoming request: ${req.method} ${req.url}`)
         return res.json(answer)
     } catch (error) {
-        console.error("Failed to fetch weather details:", error);
-        res.status(500).json({ message: "Failed to fetch weather details. Please try again later." });
+        console.error('Failed to fetch weather details:', error);
+        res.status(500).json({ message: 'Failed to fetch weather details. Please try again later.' });
     }
 });
 
-//To handle frontent logs:
-// Example route to handle frontend logs
 app.post('/api/log', (req, res) => {
     const { level, message } = req.body;
     logger.log({ level, message });

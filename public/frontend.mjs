@@ -1,10 +1,7 @@
-
 document.addEventListener('DOMContentLoaded', function () {
     const dropdown = document.querySelector('#locationsDropdown');
-    const goButton = document.querySelector("#getWeatherButton");
-    let answerText = document.querySelector("#answerText");
-    let answer;
-
+    const goButton = document.querySelector('#getWeatherButton');
+    let answerText = document.querySelector('#answerText');
 
 
     fetch('/api/locations')
@@ -13,9 +10,9 @@ document.addEventListener('DOMContentLoaded', function () {
             // Populate dropdown with locations
             locations.forEach((location) => {
                 if (location.includes('(')) {
-                    location = location.replace(/ \([\s\S]*?\)/g, "");
+                    location = location.replace(/ \([\s\S]*?\)/g, '');
                 }
-                const option = document.createElement("option");
+                const option = document.createElement('option');
                 option.value = location;
                 option.text = location;
                 dropdown.appendChild(option);
@@ -32,11 +29,11 @@ document.addEventListener('DOMContentLoaded', function () {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({place}) // Send the selected value in the request body
+            body: JSON.stringify({ place }) //Send the selected value in the request body
         })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    throw new Error('Error fetching coordinates');
                 }
                 return response.json();
             })
@@ -46,72 +43,50 @@ document.addEventListener('DOMContentLoaded', function () {
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({coordinates}) // Stringify coordinates before sending
+                    body: JSON.stringify({ coordinates })
                 })
                     .then(response => {
                         if (!response.ok) {
-                            throw new Error('Network response was not ok');
+                            throw new Error('Error fetching weather');
                         }
                         fetch(`/api/details`)
                             .then(response => {
                                 if (!response.ok) {
-                                    throw new Error('Network response was not ok');
+                                    throw new Error('Error fetching details');
                                 }
                                 return response.json();
                             })
                             .then(details => {
-                               const detailsArray = createElements(details)
+                                const detailsArray = createElements(details)
                                 try {
-                                   let requestBody = detailsArray.join(', ')
-                                    /*let requestBody = {
-                                        inputs: detailsArray.join(', ')*/
-                                    //};
+                                    let requestBody = detailsArray.join(', ')
 
-                                    //let requestBodyString = JSON.stringify(requestBody);
-                                      fetch('/api/chat', {
+                                    fetch('/api/chat', {
                                         method: 'POST',
                                         headers: {
                                             'Content-Type': 'application/json'
                                         },
-//changed requestBodyString below to requestBody
-                                        //body: JSON.stringify(requestBody) // Stringify coordinates before sending
-                                    body: JSON.stringify({requestBody})
+                                        body: JSON.stringify({ requestBody })
                                     }).then(response => {
-                                          if (!response.ok) {
-                                              throw new Error('Open AI network response was not ok');
-                                          }
-                                          return response.json();
-                                      })
-                                          .then(chat => {
-                                              try {
-                                              sendLog('info', `Full response object: ${JSON.stringify(chat)}`); // Log the full response object
-                                              const chatNoQuotes = JSON.stringify(chat).replace(/['"]+/g, '')
-                                                  answerText.append(chatNoQuotes)
-                                              } catch (error) {
-                                                  sendLog('Unexpected response structure', error);
-                                              }
-                                            //console.log(`Here is the chat object: ${JSON.stringify(chat)}`);
-                                            //completion.choices[0].message.content
-                                            //answerText.append(chat[0].message.content)
+                                        if (!response.ok) {
+                                            throw new Error('Open AI network response was not ok');
+                                        }
+                                        return response.json();
+                                    })
+                                        .then(chat => {
+                                            try {
+                                                sendLog('info', `Full response object: ${JSON.stringify(chat)}`);
+                                                const chatNoQuotes = JSON.stringify(chat).replace(/[""]+/g, '')
+                                                answerText.append(chatNoQuotes)
+                                            } catch (error) {
+                                                sendLog('Unexpected response structure', error);
+                                            }
                                         })
 
                                 } catch (error) {
                                     console.error('Error fetching chat:', error);
                                 }
-                                /*query(requestBodyString).then(
-                                    answer => {
-                                        let extractedValue = answer[0].generated_text;
-                                            answerText.innerHTML = extractedValue;
-
-                                    }
-                                ).catch(error => {
-                                    console.error('Error fetching answer:', error);
-                                })*/
-                                    /*.catch(error => {
-                                        console.error('Error fetching weather details:', error);
-                                    });*/
                             })
-                            //insert fetch chatgpt here
                             .catch(error => {
                                 console.error('Error fetching weather:', error);
                             });
@@ -121,6 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     });
             });
     });
+
     const menuToggle = document.querySelector('#menu-toggle');
     const menu = document.querySelector('.menu');
 
@@ -129,18 +105,19 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     if (menuToggle.checked) {
-        window.addEventListener("click", hideMenu);
+        window.addEventListener('click', hideMenu);
         hideMenu();
     }
 
 });
-function hideMenu(){
+
+function hideMenu() {
     document.querySelector('#menu-toggle').checked = false;
 }
 
 function degToCompass(num) {
     let val = Math.floor((num / 22.5) + 0.5);
-    let arr = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
+    let arr = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
     return arr[(val % 16)];
 }
 
@@ -149,49 +126,49 @@ function capitalize(s) {
 }
 
 function createElements(details) {
-    let weatherText = document.querySelector("#weatherText");
+    let weatherText = document.querySelector('#weatherText');
     const KM_PER_HOUR = 3.6
     weatherText.innerHTML = '';
     // Create elements for each detail and append them
-    let cloudCoverElem = document.createElement("div");
+    let cloudCoverElem = document.createElement('div');
     cloudCoverElem.id = 'clouds'
     cloudCoverElem.textContent = capitalize(details[0]);
 
-    let iconElem = document.getElementById("weather-icon");
+    let iconElem = document.getElementById('weather-icon');
     let icon = details[1];
     if (iconElem) {
-        iconElem.innerHTML = `<img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="weather icon">`;
+        iconElem.innerHTML = `<img src='https://openweathermap.org/img/wn/${icon}@2x.png' alt='weather icon'>`;
     } else {
-        iconElem = document.createElement("div");
-        iconElem.innerHTML = `<img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="weather icon">`;
+        iconElem = document.createElement('div');
+        iconElem.innerHTML = `<img src='https://openweathermap.org/img/wn/${icon}@2x.png' alt='weather icon'>`;
 
     }
-    let currentTempElem = document.createElement("div");
+    let currentTempElem = document.createElement('div');
     currentTempElem.id = 'current';
     let currentTempCelcius = Math.trunc(details[2]);
     currentTempElem.textContent = `Current Temperature: ${currentTempCelcius}°C`;
 
-    let feelsLikeElem = document.createElement("div");
+    let feelsLikeElem = document.createElement('div');
     feelsLikeElem.id = 'feels'
     let feelsLike = Math.trunc(details[3]);
     feelsLikeElem.textContent = `Feels Like: ${feelsLike}°C`;
 
-    let minTempElem = document.createElement("div");
+    let minTempElem = document.createElement('div');
     minTempElem.id = 'min'
     let minTemp = Math.trunc(details[4]);
     minTempElem.textContent = `Minimum Temperature: ${minTemp}°C`;
 
-    let maxTempElem = document.createElement("div");
+    let maxTempElem = document.createElement('div');
     maxTempElem.id = 'max'
     let maxTemp = Math.trunc(details[5]);
     maxTempElem.textContent = `Maximum Temperature: ${maxTemp}°C`;
 
-    let windSpeedElem = document.createElement("div");
+    let windSpeedElem = document.createElement('div');
     windSpeedElem.id = 'speed'
     let windSpeed = Math.trunc(details[6]) * KM_PER_HOUR;
     windSpeedElem.textContent = `Wind Speed: ${windSpeed} km/hr`;
 
-    let windDirectionElem = document.createElement("div");
+    let windDirectionElem = document.createElement('div');
     windDirectionElem.id = 'dir';
     let windDirection = degToCompass(details[7]);
     windDirectionElem.textContent = `Wind Direction: ${windDirection}`;
@@ -215,7 +192,7 @@ function createElements(details) {
             windSpeedElem.textContent,
             windDirectionElem.textContent
         ]
-return detailsArray;
+    return detailsArray;
 }
 
 function sendLog(level, message) {
@@ -224,7 +201,7 @@ function sendLog(level, message) {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ level, message })
+        body: JSON.stringify({level, message})
     })
         .then(response => {
             if (!response.ok) {
@@ -240,8 +217,6 @@ function sendLog(level, message) {
         });
 }
 
-// Usage example
-sendLog('info', 'This is an info log from the frontend');
 
 
 
