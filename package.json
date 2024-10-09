@@ -13,7 +13,7 @@
   "description": "",
   "dependencies": {
     "@nlbridge/express": "^0.3.10",
-    "axios": "^1.6.8",
+    "axios": "^1.7.4",
     "cheerio": "^1.0.0-rc.12",
     "cohere-ai": "^7.10.1",
     "dotenv": "^16.4.5",
